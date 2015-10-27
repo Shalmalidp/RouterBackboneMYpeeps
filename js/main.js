@@ -1,5 +1,16 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
+import Router from './router';
 
-console.log('Hello, World');
+import './ajax_setup';
+
+import InstructorCollection from './instructors_collection'
+
+
+//GRAB HTML ELEMENT TO DISPLAY INFO
+
+var appElement = $('.app');
+
+var router = new Router(appElement);
+router.start();
