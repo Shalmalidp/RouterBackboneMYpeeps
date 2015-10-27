@@ -5,7 +5,7 @@ import Router from './router';
 
 import './ajax_setup';
 
-import InstructorCollection from './instructors_collection'
+//import InstructorCollection from './instructors_collection'
 
 
 //GRAB HTML ELEMENT TO DISPLAY INFO

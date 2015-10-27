@@ -10,14 +10,36 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var APP_ID = 'yuMmTQFtkXKGgHMRk1mgmv0FE8HJyUk1TFME4OMs';
 var API_REST_KEY = 'wowyCfc4FLH2arePGRlmSkh97VkMOfm9tk8TXLqf';
 
-_jquery2['default'].ajaxsetup({
+_jquery2['default'].ajaxSetup({
 	headers: {
 		'X-Parse-Application-Id': APP_ID,
 		'X-Parse-REST-API-Key': API_REST_KEY
 	}
 });
 
-},{"jquery":6}],2:[function(require,module,exports){
+},{"jquery":10}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _backbone = require('backbone');
+
+var _backbone2 = _interopRequireDefault(_backbone);
+
+var InstructorModel = _backbone2['default'].Model.extend({
+
+	urlRoot: 'http://api.parse.com/1/classes/Instructors',
+	idAttribute: 'objectId'
+});
+
+exports['default'] = InstructorModel;
+module.exports = exports['default'];
+
+},{"backbone":9}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33,7 +55,6 @@ var _backbone2 = _interopRequireDefault(_backbone);
 var InstructorsCollection = _backbone2['default'].Collection.extend({
 	url: 'https://api.parse.com/1/classes/Instructors',
 	parse: function parse(data) {
-		//window.x = data.results;
 		return data.results;
 	}
 });
@@ -41,7 +62,7 @@ var InstructorsCollection = _backbone2['default'].Collection.extend({
 exports['default'] = InstructorsCollection;
 module.exports = exports['default'];
 
-},{"backbone":5}],3:[function(require,module,exports){
+},{"backbone":9}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -64,9 +85,7 @@ var _router2 = _interopRequireDefault(_router);
 
 require('./ajax_setup');
 
-var _instructors_collection = require('./instructors_collection');
-
-var _instructors_collection2 = _interopRequireDefault(_instructors_collection);
+//import InstructorCollection from './instructors_collection'
 
 //GRAB HTML ELEMENT TO DISPLAY INFO
 
@@ -75,8 +94,12 @@ var appElement = (0, _jquery2['default'])('.app');
 var router = new _router2['default'](appElement);
 router.start();
 
-},{"./ajax_setup":1,"./instructors_collection":2,"./router":4,"jquery":6,"moment":7,"underscore":8}],4:[function(require,module,exports){
+},{"./ajax_setup":1,"./router":5,"jquery":10,"moment":11,"underscore":12}],5:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -84,7 +107,159 @@ var _backbone = require('backbone');
 
 var _backbone2 = _interopRequireDefault(_backbone);
 
-},{"backbone":5}],5:[function(require,module,exports){
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+//importing constructios of collection and model
+
+var _instructors_collection = require('./instructors_collection');
+
+var _instructors_collection2 = _interopRequireDefault(_instructors_collection);
+
+var _instructor_model = require('./instructor_model');
+
+var _instructor_model2 = _interopRequireDefault(_instructor_model);
+
+var _viewsHome_template = require('./views/home_template');
+
+var _viewsHome_template2 = _interopRequireDefault(_viewsHome_template);
+
+var _viewsSingle_template = require('./views/single_template');
+
+var _viewsSingle_template2 = _interopRequireDefault(_viewsSingle_template);
+
+var _viewsCollection_template = require('./views/collection_template');
+
+var _viewsCollection_template2 = _interopRequireDefault(_viewsCollection_template);
+
+//create router instance
+var Router = _backbone2['default'].Router.extend({
+
+	routes: {
+		"": "home",
+		"collections": "collectionsList",
+		"single/:id": "singleList"
+	},
+
+	initialize: function initialize(appElement) {
+		this.$el = appElement;
+		this.collection = new _instructors_collection2['default']();
+		var data1 = this;
+		this.$el.on('click', '.inst_list', function (event) {
+			var $p = (0, _jquery2['default'])(event.currentTarget);
+			var objID = $p.data('instructor-item');
+			data1.navigate('single/' + objID);
+			data1.singleList(objID);
+		});
+	},
+
+	// home : function(){
+	// 	var router = this;
+	// 	this.$el.html(HomeTemplate() );
+	// },
+	home: function home() {
+		var router = this;
+		this.collection.fetch().then(function () {
+			router.$el.html((0, _viewsCollection_template2['default'])(router.collection.toJSON()));
+		});
+	},
+
+	// collectionsList : function() {
+	// 	this.showSpinner();
+	// 	var router = this;
+	// 	this.collection.fetch().then(function(){
+	// 		router.$el.html(collectionTemplate(router.collection.toJSON()));
+	// 	})
+
+	// },
+
+	start: function start() {
+		_backbone2['default'].history.start();
+	},
+
+	singleList: function singleList(objID) {
+		var _this = this;
+
+		var x = this.collection.get(objID);
+		//console.log(x);
+		if (x) {
+			this.$el.html((0, _viewsSingle_template2['default'])(x.toJSON()));
+		} else {
+			(function () {
+				var data2 = _this;
+				x = _this.collection.add({ objectId: objID });
+				//this.showSpinner();
+				x.fetch().then(function () {
+					data2.$el.html((0, _viewsSingle_template2['default'])(x.toJSON()));
+					//console.log(x.toJSON()); //i get data here
+				});
+			})();
+		};
+	},
+
+	showSpinner: function showSpinner() {
+		this.$el.html('<i class="fa fa-spinner fa-spin"></i>');
+	}
+});
+
+exports['default'] = Router;
+module.exports = exports['default'];
+
+},{"./instructor_model":2,"./instructors_collection":3,"./views/collection_template":6,"./views/home_template":7,"./views/single_template":8,"backbone":9,"jquery":10}],6:[function(require,module,exports){
+//COllection template for all the data
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+function displayAll(data) {
+
+	return data.map(function (item) {
+
+		return '\n\t\t\n\t\t<p class ="inst_list" data-instructor-item = "' + item.objectId + '">' + item.Name + '</p>\n\t\t';
+	}).join('');
+	console.log('item');
+}
+
+function collectionTemplate(data) {
+	return '\n\t<div>' + displayAll(data) + '</div>\n\t';
+}
+
+exports['default'] = collectionTemplate;
+module.exports = exports['default'];
+
+},{}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+function homeTemplate() {
+	return "\n\t<h3> List View </h3>\n\t";
+}
+
+exports["default"] = homeTemplate;
+module.exports = exports["default"];
+
+},{}],8:[function(require,module,exports){
+//import InstructorModel from './instructor_model';
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+function SingleTemplate(data) {
+	console.log("im returning from the template", data);
+	return "\n\t<h3> Single View</h3>\n\t<div class=\"singlebody\">" + data.photo + "</div>\n\t<h4>" + data.Name + "</h4>\n\t<h4>" + data.Email + "</h4>\n\t<h4>" + data.Phone + "</h4>\n\t<h4>" + data.Location + "</h4> \n\t</h4>" + data.State + "</h4>\n\t";
+}
+
+exports["default"] = SingleTemplate;
+module.exports = exports["default"];
+
+},{}],9:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1983,7 +2158,7 @@ var _backbone2 = _interopRequireDefault(_backbone);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":6,"underscore":8}],6:[function(require,module,exports){
+},{"jquery":10,"underscore":12}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11195,7 +11370,7 @@ return jQuery;
 
 }));
 
-},{}],7:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -14391,7 +14566,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],8:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -15941,7 +16116,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[3])
+},{}]},{},[4])
 
 
 //# sourceMappingURL=main.js.map
