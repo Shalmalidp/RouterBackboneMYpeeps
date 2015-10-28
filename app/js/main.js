@@ -261,7 +261,7 @@ Object.defineProperty(exports, "__esModule", {
 function SingleTemplate(data) {
 	console.log("im returning from the template", data); //data is coming in
 
-	return "\n\t<div class=\"sView\">\n\t<div class=\"singlebody\"><img id =\"profile\" src =\"./images/profile.png\"></div>\n\t<p class=\"single-data\"><i class=\"fa fa-user\"></i>" + data.Name + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-envelope\"></i>" + data.Email + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-mobile\"></i> " + data.Phone + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-globe\"></i> " + data.Location + ", " + data.State + "</p> \n\t</div>\n\t";
+	return "\n\t<div class=\"sView\">\n\t\t<div class=\"singlebody\">\n\t\t\t<img id =\"profile\" src =\"./images/profile.png\">\n\t\t</div>\n\t\t<p class=\"single-data\"><i class=\"fa fa-user\"></i>" + data.Name + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-envelope\"></i>" + data.Email + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-mobile\"></i> " + data.Phone + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-globe\"></i> " + data.Location + ", " + data.State + "</p> \n\t</div>\n\t";
 }
 
 exports["default"] = SingleTemplate;

@@ -2058,11 +2058,11 @@ p {
   line-height: 35px;
   border-bottom: 1px solid grey; }
 
-.singleBody {
+.singlebody {
   display: line-block;
   width: 100%;
   height: 120px;
-  background-color: solid #A6D171  !important;
+  background-color: #A6D171;
   padding: 0;
   margin: 0;
   border-bottom: 1px solid grey;
