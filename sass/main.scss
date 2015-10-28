@@ -58,7 +58,7 @@ p{
 	margin :0;
 	border-bottom:1px solid grey;
 	font-color: white;
-	
+	position :relative;
 }
 
 
@@ -68,6 +68,9 @@ p{
 
 #profile{
 	display:inline-block;
+	position:absolute;
+	top:15px;
+	left:0px;
 	vertical-align:middle;
 	text-align:center;
 	border: 0;

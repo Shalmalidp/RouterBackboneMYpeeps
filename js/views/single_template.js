@@ -6,7 +6,8 @@ console.log("im returning from the template", data); //data is coming in
 return `
 	<div class="sView">
 		<div class="singlebody">
-			<img id ="profile" src ="./images/profile.png">
+         <i data-arrow-click id="arrow"  class="fa fa-arrow-left"></i>			
+		<img id ="profile" src ="./images/profile.png">
 		</div>
 		<p class="single-data"><i class="fa fa-user"></i>${data.Name}</p>
 		<p class="single-data"><i class="fa fa-envelope"></i>${data.Email}</p>
@@ -18,4 +19,4 @@ return `
 
 export default SingleTemplate;
 
-// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>
+// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>a

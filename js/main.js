@@ -7,6 +7,7 @@ import './ajax_setup';
 
 
 
+
 //GRAB HTML ELEMENT TO DISPLAY INFO
 
 var appElement = $('.app');

@@ -26,11 +26,20 @@ let Router = Backbone.Router.extend({
 		this.$el = appElement;
 		this.collection = new InstructorsCollection();
 		let data1 = this;
+		//on click p tags in collection template
 		this.$el.on('click','.inst_list',function(event){
 			let $p = $(event.currentTarget);
 			var objID = $p.data('instructor-item');
 			data1.navigate(`single/${objID}`);
 			data1.singleList(objID);
+		});
+
+		//on click arrow on arrow image on single template
+		this.$el.on('click','#arrow',function(event){
+			let $i = $(event.currentTarget);
+			console.log("IM BEING CLICKED!!!");
+			var objID =$i.data('arrow-click');
+			data1.navigate(objID, {trigger : true});
 		});
 	},
 

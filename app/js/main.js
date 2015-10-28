@@ -152,11 +152,20 @@ var Router = _backbone2['default'].Router.extend({
 		this.$el = appElement;
 		this.collection = new _instructors_collection2['default']();
 		var data1 = this;
+		//on click p tags in collection template
 		this.$el.on('click', '.inst_list', function (event) {
 			var $p = (0, _jquery2['default'])(event.currentTarget);
 			var objID = $p.data('instructor-item');
 			data1.navigate('single/' + objID);
 			data1.singleList(objID);
+		});
+
+		//on click arrow on arrow image on single template
+		this.$el.on('click', '#arrow', function (event) {
+			var $i = (0, _jquery2['default'])(event.currentTarget);
+			console.log("IM BEING CLICKED!!!");
+			var objID = $i.data('arrow-click');
+			data1.navigate(objID, { trigger: true });
 		});
 	},
 
@@ -261,12 +270,12 @@ Object.defineProperty(exports, "__esModule", {
 function SingleTemplate(data) {
 	console.log("im returning from the template", data); //data is coming in
 
-	return "\n\t<div class=\"sView\">\n\t\t<div class=\"singlebody\">\n\t\t\t<img id =\"profile\" src =\"./images/profile.png\">\n\t\t</div>\n\t\t<p class=\"single-data\"><i class=\"fa fa-user\"></i>" + data.Name + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-envelope\"></i>" + data.Email + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-mobile\"></i> " + data.Phone + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-globe\"></i> " + data.Location + ", " + data.State + "</p> \n\t</div>\n\t";
+	return "\n\t<div class=\"sView\">\n\t\t<div class=\"singlebody\">\n         <i data-arrow-click id=\"arrow\"  class=\"fa fa-arrow-left\"></i>\t\t\t\n\t\t<img id =\"profile\" src =\"./images/profile.png\">\n\t\t</div>\n\t\t<p class=\"single-data\"><i class=\"fa fa-user\"></i>" + data.Name + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-envelope\"></i>" + data.Email + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-mobile\"></i> " + data.Phone + "</p>\n\t\t<p class=\"single-data\"><i class=\"fa fa-globe\"></i> " + data.Location + ", " + data.State + "</p> \n\t</div>\n\t";
 }
 
 exports["default"] = SingleTemplate;
 
-// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>
+// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>a
 module.exports = exports["default"];
 
 },{}],9:[function(require,module,exports){
