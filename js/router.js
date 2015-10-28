@@ -59,6 +59,8 @@ let Router = Backbone.Router.extend({
 	},
 
 	singleList : function(objID){
+
+		console.log(this.collection);
 		let x = this.collection.get(objID);
 		//console.log(x);
 		if(x){
@@ -68,6 +70,7 @@ let Router = Backbone.Router.extend({
 			let data2 = this;
 			x = this.collection.add({objectId : objID});
 			//this.showSpinner();
+			console.log(x);
 			x.fetch().then(function(){
 				data2.$el.html(SingleTemplate(x.toJSON()) );
 				//console.log(x.toJSON()); //i get data here

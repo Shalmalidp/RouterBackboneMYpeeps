@@ -1,6 +1,6 @@
 function homeTemplate(){
 	return `
-	<h3> List View </h3>
+	<h3> List View</h3>
 	`;
 }
 

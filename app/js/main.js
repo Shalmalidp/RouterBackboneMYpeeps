@@ -34,6 +34,7 @@ var InstructorModel = _backbone2['default'].Model.extend({
 
 	urlRoot: 'http://api.parse.com/1/classes/Instructors',
 	idAttribute: 'objectId'
+
 });
 
 exports['default'] = InstructorModel;
@@ -52,8 +53,16 @@ var _backbone = require('backbone');
 
 var _backbone2 = _interopRequireDefault(_backbone);
 
+var _instructor_model = require('./instructor_model');
+
+var _instructor_model2 = _interopRequireDefault(_instructor_model);
+
 var InstructorsCollection = _backbone2['default'].Collection.extend({
 	url: 'https://api.parse.com/1/classes/Instructors',
+	parse: function parse(data) {
+		return data.results;
+	},
+	model: _instructor_model2['default'],
 	parse: function parse(data) {
 		return data.results;
 	}
@@ -62,7 +71,7 @@ var InstructorsCollection = _backbone2['default'].Collection.extend({
 exports['default'] = InstructorsCollection;
 module.exports = exports['default'];
 
-},{"backbone":9}],4:[function(require,module,exports){
+},{"./instructor_model":2,"backbone":9}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -84,8 +93,6 @@ var _router = require('./router');
 var _router2 = _interopRequireDefault(_router);
 
 require('./ajax_setup');
-
-//import InstructorCollection from './instructors_collection'
 
 //GRAB HTML ELEMENT TO DISPLAY INFO
 
@@ -181,6 +188,7 @@ var Router = _backbone2['default'].Router.extend({
 	singleList: function singleList(objID) {
 		var _this = this;
 
+		console.log(this.collection);
 		var x = this.collection.get(objID);
 		//console.log(x);
 		if (x) {
@@ -190,6 +198,7 @@ var Router = _backbone2['default'].Router.extend({
 				var data2 = _this;
 				x = _this.collection.add({ objectId: objID });
 				//this.showSpinner();
+				console.log(x);
 				x.fetch().then(function () {
 					data2.$el.html((0, _viewsSingle_template2['default'])(x.toJSON()));
 					//console.log(x.toJSON()); //i get data here
@@ -218,7 +227,7 @@ function displayAll(data) {
 
 	return data.map(function (item) {
 
-		return '\n\t\t\n\t\t<p class ="inst_list" data-instructor-item = "' + item.objectId + '">' + item.Name + '</p>\n\t\t';
+		return '\n\t\t<div>List</div>\n\t\t<p class ="inst_list" data-instructor-item = "' + item.objectId + '">' + item.Name + '</p>\n\t\t';
 	}).join('');
 	console.log('item');
 }
@@ -244,16 +253,16 @@ exports["default"] = homeTemplate;
 module.exports = exports["default"];
 
 },{}],8:[function(require,module,exports){
-//import InstructorModel from './instructor_model';
-
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
 function SingleTemplate(data) {
-	console.log("im returning from the template", data);
-	return "\n\t<h3> Single View</h3>\n\t<div class=\"singlebody\">" + data.photo + "</div>\n\t<h4>" + data.Name + "</h4>\n\t<h4>" + data.Email + "</h4>\n\t<h4>" + data.Phone + "</h4>\n\t<h4>" + data.Location + "</h4> \n\t</h4>" + data.State + "</h4>\n\t";
+	console.log("im returning from the template", data); //data is coming in
+
+	return "\n\t<h3> Single View</h3>\n\t<div class=\"singlebody\">Picture " + data.photo + "</div>\n\t<h4>Name " + data.Name + "</h4>\n\t<h4>Email " + data.Email + "</h4>\n\t<h4>Phone " + data.Phone + "</h4>\n\t<h4>Location " + data.Location + "</h4> \n\t<h4>State " + data.State + "</h4>\n\t";
 }
 
 exports["default"] = SingleTemplate;
