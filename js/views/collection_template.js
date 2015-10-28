@@ -5,7 +5,7 @@ function displayAll(data){
 	return data.map(function(item){
 
 		return `
-		<p class ="inst_list" data-instructor-item = "${item.objectId}">${item.Name}</p>
+		<p class ="inst_list" data-instructor-item = "${item.objectId}"><img id ="photo" src ="./images/profile.png">${item.Name}</p>
 		`;
 	}).join('');
 	console.log('item');
@@ -13,8 +13,10 @@ function displayAll(data){
 
 function collectionTemplate(data){
 	return`
-	<h4>list View</h4>
-	<div>${displayAll(data)}</div>
+	<div class="peeps">
+	<h4 id="LV">My Peeps</h4>
+	</div>
+	<div class="display">${displayAll(data)}</div>
 	`;
 }
 

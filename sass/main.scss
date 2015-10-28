@@ -2,5 +2,82 @@
 @import "font-awesome";
 
 body {
-  background: #e2ebf3;
+  //background: #e2ebf3;
+}
+
+.mainpage{
+	width:100%;
+	margin : 0 10%;
+}
+
+.app{
+	width :30%;
+	border :1px solid gray;
+	line-height: 25px;
+}
+.display{
+	width :100%;
+	margin:0;
+}
+
+#photo{
+	width: 35px;
+    height: 35px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    background-color:#DEE2E3;
+    margin-right :5%;
+}
+
+.peeps{
+	padding :0;
+	margin :0;
+	background-color: #7FBE2C;
+	border-bottom:1px solid grey;
+	font-color: white;
+}
+#LV{
+	margin :0;
+	padding-top:0;
+	line-height: 60px;
+	color:white;
+	padding-left: 7%;
+}
+p{	
+	padding-left : 7%;
+	line-height :35px;
+	border-bottom :1px solid grey;
+}
+
+.singleBody{
+	display:line-block;
+	width:100%;
+	height:120px;
+	background-color: solid #A6D171  !important;
+	padding :0;
+	margin :0;
+	border-bottom:1px solid grey;
+	font-color: white;
+	
+}
+
+#profile{
+	display:inline-block;
+	vertical-align:middle;
+	text-align:center;
+	border: 0;
+    width: 80px;
+    height: 80px;
+    border-bottom: 1px solid grey;
+    border-radius: 45px;
+    background-color: #DEE2E3;
+    margin-left:40%;
+}
+
+.single-data{
+	padding-left :15%;
+	padding-right:15%;
+	border: 1px solid grey;
+	margin:0;
+	line-height:45px;
 }

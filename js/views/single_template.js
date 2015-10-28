@@ -4,14 +4,18 @@ function SingleTemplate(data){
 console.log("im returning from the template", data); //data is coming in 
 
 return `
-	<h3> Single View</h3>
-	<div class="singlebody" width = "400" height ="400">${data.Image.name}</div>
-	<h4>Name ${data.Name}</h4>
-	<h4>Email ${data.Email}</h4>
-	<h4>Phone ${data.Phone}</h4>
-	<h4>Location ${data.Location}</h4> 
-	<h4>State ${data.State}</h4>
+	<div class="sView">
+		<div class="singlebody">
+			<img id ="profile" src ="./images/profile.png">
+		</div>
+		<p class="single-data"><i class="fa fa-user"></i>${data.Name}</p>
+		<p class="single-data"><i class="fa fa-envelope"></i>${data.Email}</p>
+		<p class="single-data"><i class="fa fa-mobile"></i> ${data.Phone}</p>
+		<p class="single-data"><i class="fa fa-globe"></i> ${data.Location}, ${data.State}</p> 
+	</div>
 	`;
 }
 
 export default SingleTemplate;
+
+// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>

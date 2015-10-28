@@ -32,7 +32,7 @@ var _backbone2 = _interopRequireDefault(_backbone);
 
 var InstructorModel = _backbone2['default'].Model.extend({
 
-	urlRoot: 'http://api.parse.com/1/classes/Instructors',
+	urlRoot: 'https://api.parse.com/1/classes/Instructors',
 	idAttribute: 'objectId'
 
 });
@@ -59,9 +59,8 @@ var _instructor_model2 = _interopRequireDefault(_instructor_model);
 
 var InstructorsCollection = _backbone2['default'].Collection.extend({
 	url: 'https://api.parse.com/1/classes/Instructors',
-	parse: function parse(data) {
-		return data.results;
-	},
+	//},
+
 	model: _instructor_model2['default'],
 	parse: function parse(data) {
 		return data.results;
@@ -227,13 +226,13 @@ function displayAll(data) {
 
 	return data.map(function (item) {
 
-		return '\n\t\t<div>List</div>\n\t\t<p class ="inst_list" data-instructor-item = "' + item.objectId + '">' + item.Name + '</p>\n\t\t';
+		return '\n\t\t<p class ="inst_list" data-instructor-item = "' + item.objectId + '"><img id ="photo" src ="./images/profile.png">' + item.Name + '</p>\n\t\t';
 	}).join('');
 	console.log('item');
 }
 
 function collectionTemplate(data) {
-	return '\n\t<div>' + displayAll(data) + '</div>\n\t';
+	return '\n\t<div class="peeps">\n\t<h4 id="LV">My Peeps</h4>\n\t</div>\n\t<div class="display">' + displayAll(data) + '</div>\n\t';
 }
 
 exports['default'] = collectionTemplate;
@@ -246,7 +245,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 function homeTemplate() {
-	return "\n\t<h3> List View </h3>\n\t";
+	return "\n\t<h3> List View</h3>\n\t";
 }
 
 exports["default"] = homeTemplate;
@@ -262,10 +261,12 @@ Object.defineProperty(exports, "__esModule", {
 function SingleTemplate(data) {
 	console.log("im returning from the template", data); //data is coming in
 
-	return "\n\t<h3> Single View</h3>\n\t<div class=\"singlebody\">Picture " + data.photo + "</div>\n\t<h4>Name " + data.Name + "</h4>\n\t<h4>Email " + data.Email + "</h4>\n\t<h4>Phone " + data.Phone + "</h4>\n\t<h4>Location " + data.Location + "</h4> \n\t<h4>State " + data.State + "</h4>\n\t";
+	return "\n\t<div class=\"sView\">\n\t<div class=\"singlebody\"><img id =\"profile\" src =\"./images/profile.png\"></div>\n\t<p class=\"single-data\"><i class=\"fa fa-user\"></i>" + data.Name + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-envelope\"></i>" + data.Email + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-mobile\"></i> " + data.Phone + "</p>\n\t<p class=\"single-data\"><i class=\"fa fa-globe\"></i> " + data.Location + ", " + data.State + "</p> \n\t</div>\n\t";
 }
 
 exports["default"] = SingleTemplate;
+
+// <div class="singlebody"><img id ="Profile" src ="./images/profile.png">${data.Image.url}</div>
 module.exports = exports["default"];
 
 },{}],9:[function(require,module,exports){
