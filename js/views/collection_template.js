@@ -5,7 +5,11 @@ function displayAll(data){
 	return data.map(function(item){
 
 		return `
-		<p class ="inst_list" data-instructor-item = "${item.objectId}"><img id ="photo" src ="./images/profile.png">${item.Name}</p>
+			<p class ="inst_list" 
+				 data-instructor-item = "${item.objectId}">
+				<img id ="photo" 
+					src ="./images/profile.png">${item.Name}
+			</p>
 		`;
 	}).join('');
 	console.log('item');

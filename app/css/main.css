@@ -2046,6 +2046,9 @@
   border-bottom: 1px solid grey;
   font-color: white; }
 
+.inst_list:hover {
+  cursor: pointer; }
+
 #LV {
   margin: 0;
   padding-top: 0;
@@ -2068,6 +2071,9 @@ p {
   border-bottom: 1px solid grey;
   font-color: white;
   position: relative; }
+
+.singlebody:hover {
+  cursor: pointer; }
 
 #profile {
   display: inline-block;
